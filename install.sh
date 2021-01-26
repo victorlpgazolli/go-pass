@@ -1,18 +1,16 @@
-# if [ "$EUID" -ne 0 ]
-#   then echo "Please run as root"
-#   exit
-# fi
+PASS=$HOME/.go-pass
 
-export PASS=~/.go-pass
+# rm -rf $PASS
 
 mkdir $PASS &>/dev/null;
 
-rm -rf go-pass;
+rm -rf $PASS;
 
-git clone https://github.com/victorlpgazolli/go-pass;
+git clone https://github.com/victorlpgazolli/go-pass $PASS;
 
-mv go-pass/pass $PASS;
+echo "We need sudo permissions to move the executable to /usr/sbin"
 
-rm -rf go-pass;
+sudo cp $PASS/pass /usr/sbin/pass
 
-echo 'pass installed!'
+echo "pass installed in /usr/sbin"
+
