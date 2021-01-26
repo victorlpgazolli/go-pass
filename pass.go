@@ -46,7 +46,7 @@ func getParams() (
 }
 
 func getDefaultStoragePath()(string){
-    return os.Getenv("PASS")
+    return fmt.Sprintf("%s/.go-pass", os.Getenv("HOME"),)
 }
 
 func saveToFile(filename, payload string){
@@ -193,7 +193,7 @@ func main() {
   rawPassword := getPassword(name)
 
   if !hasPassword {
-    fmt.Println("[info] no password match with name %s", name)
+    fmt.Println("[info] no password match with name", name)
     return
   } 
   

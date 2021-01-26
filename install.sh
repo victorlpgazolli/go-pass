@@ -1,19 +1,22 @@
+#!/bin/bash
+
+mkdir $HOME/.go-pass
+
+rm -rf go-pass;
+
+git clone https://github.com/victorlpgazolli/go-pass.git;
+
 echo "We need root permissions to move the executable to /usr/sbin"
 
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
+if ! [ $(id -u) = 0 ]; then
+   echo "This script must be run as root" 
+   exit 1
 fi
 
-PASS=$HOME/.go-pass
+mv go-pass/pass /usr/sbin;
 
-rm -rf $PASS
+rm -rf go-pass;
 
-mkdir $PASS &>/dev/null;
 
-git clone https://github.com/victorlpgazolli/go-pass $PASS;
 
-cp $PASS/pass /usr/sbin/pass
-
-echo "pass installed in /usr/sbin"
-
+echo 'pass installed in /usr/sbin'
